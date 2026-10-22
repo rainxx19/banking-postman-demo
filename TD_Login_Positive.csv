@@ -1,0 +1,5 @@
+﻿testid,email,password,expected_status
+LPP_1,barkero.rain@gmail.com,Password_123,200
+LPP_2,barkero.rain@gmail.com,Password_123,200
+LPP_3,barkero.RAIN@gmail.com,Password_123,200
+LPP_4,barkero.rain@gmail.com,Password_123,200

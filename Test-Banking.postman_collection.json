@@ -1,0 +1,596 @@
+{
+  "info": {
+    "_postman_id": "0e529bbf-bce3-4044-ba7c-af91022028a8",
+    "name": "Test-Banking",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "57736647",
+    "_collection_link": "https://go.postman.co/collection/57736647-0e529bbf-bce3-4044-ba7c-af91022028a8?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "accounts",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const response = pm.response.json();\r",
+              "const newAccountId = response?.data?.accountId;\r",
+              "\r",
+              "if (newAccountId) {\r",
+              "    const existingAccountId = pm.collectionVariables.get(\"accountId\");\r",
+              "\r",
+              "    if (!existingAccountId) {\r",
+              "        pm.collectionVariables.set(\"accountId\", newAccountId);\r",
+              "    } else {\r",
+              "        pm.collectionVariables.set(\"accountId2\", newAccountId);\r",
+              "    }\r",
+              "}\r",
+              "\r",
+              "let acctRunCount = parseInt(pm.collectionVariables.get(\"acctRunCount\") || \"0\");\r",
+              "\r",
+              "if (acctRunCount < 1) {\r",
+              "    pm.collectionVariables.set(\"acctRunCount\", acctRunCount + 1);\r",
+              "    pm.execution.setNextRequest(\"accounts\");\r",
+              "} else {\r",
+              "    pm.collectionVariables.unset(\"acctRunCount\");\r",
+              "}\r",
+              ""
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "protocolProfileBehavior": {
+        "disabledSystemHeaders": {
+          "accept": true
+        }
+      },
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"accountName\": \"{{name}}\",\r\n  \"accountType\": \"{{type}}\",\r\n  \"status\": \"{{status}}\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/accounts",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "accounts"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Default",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{url}}/accounts",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "accounts"
+              ]
+            }
+          },
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": null,
+          "cookie": [],
+          "body": ""
+        }
+      ]
+    },
+    {
+      "name": "accounts",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true,
+        "disabledSystemHeaders": {
+          "accept": true
+        }
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{url}}/accounts",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "accounts"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Default",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{url}}/accounts",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "accounts"
+              ]
+            }
+          },
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": null,
+          "cookie": [],
+          "body": ""
+        }
+      ]
+    },
+    {
+      "name": "id",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true,
+        "disabledSystemHeaders": {
+          "accept": true
+        }
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{url}}/accounts/{{accountId}}",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "accounts",
+            "{{accountId}}"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Default",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{url}}/id",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "id"
+              ]
+            }
+          },
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": null,
+          "cookie": [],
+          "body": ""
+        }
+      ]
+    },
+    {
+      "name": "id/balance",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{url}}/accounts/{{accountId}}/balance",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "accounts",
+            "{{accountId}}",
+            "balance"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Default",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{url}}/id/balance",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "id",
+                "balance"
+              ]
+            }
+          },
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": null,
+          "cookie": [],
+          "body": ""
+        }
+      ]
+    },
+    {
+      "name": "id/deposit",
+      "protocolProfileBehavior": {
+        "disabledSystemHeaders": {
+          "accept": true
+        }
+      },
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"amount\": {{amount}}\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/accounts/{{accountId}}/deposit",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "accounts",
+            "{{accountId}}",
+            "deposit"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Default",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{url}}/id/deposit",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "id",
+                "deposit"
+              ]
+            }
+          },
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": null,
+          "cookie": [],
+          "body": ""
+        }
+      ]
+    },
+    {
+      "name": "id/withdraw",
+      "protocolProfileBehavior": {
+        "disabledSystemHeaders": {
+          "accept": true
+        }
+      },
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"amount\": {{amount2}}\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/accounts/{{accountId}}/withdraw",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "accounts",
+            "{{accountId}}",
+            "withdraw"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Default",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{url}}/id/withdraw",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "id",
+                "withdraw"
+              ]
+            }
+          },
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": null,
+          "cookie": [],
+          "body": ""
+        }
+      ]
+    },
+    {
+      "name": "transfers",
+      "protocolProfileBehavior": {
+        "disabledSystemHeaders": {
+          "accept": true
+        }
+      },
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"from\": \"{{accountId}}\",\r\n  \"to\": \"{{accountId2}}\",\r\n  \"amount\": {{amount3}}\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{url}}/accounts/transfers",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "accounts",
+            "transfers"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Default",
+          "originalRequest": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{url}}/transfers",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "transfers"
+              ]
+            }
+          },
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": null,
+          "cookie": [],
+          "body": ""
+        }
+      ]
+    },
+    {
+      "name": "transactions",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true,
+        "disabledSystemHeaders": {
+          "accept": true
+        }
+      },
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": ""
+        },
+        "url": {
+          "raw": "{{url}}/accounts/transactions",
+          "host": [
+            "{{url}}"
+          ],
+          "path": [
+            "accounts",
+            "transactions"
+          ]
+        }
+      },
+      "response": [
+        {
+          "name": "Default",
+          "originalRequest": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{url}}/transactions",
+              "host": [
+                "{{url}}"
+              ],
+              "path": [
+                "transactions"
+              ]
+            }
+          },
+          "code": 200,
+          "_postman_previewlanguage": null,
+          "header": null,
+          "cookie": [],
+          "body": ""
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "url",
+      "value": "http://localhost:4500"
+    },
+    {
+      "key": "amount",
+      "value": "1000"
+    },
+    {
+      "key": "amount2",
+      "value": "500"
+    },
+    {
+      "key": "amount3",
+      "value": "1000"
+    },
+    {
+      "key": "status",
+      "value": "Active"
+    },
+    {
+      "key": "accountId",
+      "value": "ACCT-1792571156162-479266"
+    },
+    {
+      "key": "accoundId2",
+      "value": "ACCT-1792571159129-166815"
+    }
+  ]
+}
