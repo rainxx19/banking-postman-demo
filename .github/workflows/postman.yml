@@ -1,0 +1,19 @@
+name: Postman Tests
+
+on:
+  workflow_dispatch:
+
+jobs:
+  postman-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Run Postman Collection
+        run: |
+          newman run Test-Banking.postman_collection.json
